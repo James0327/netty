@@ -13,7 +13,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.33.Final</version>
+            <version>4.1.52.Final</version>
         </dependency>
         <dependency>
             <groupId>org.msgpack</groupId>
@@ -23,7 +23,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>3.11</version>
         </dependency>
     </dependencies>
 
