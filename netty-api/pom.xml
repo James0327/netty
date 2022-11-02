@@ -3,17 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+    <parent>
+        <artifactId>netty</artifactId>
+        <groupId>com.guoyy.jw</groupId>
+        <version>1.0.0.0</version>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>netty-api</artifactId>
-    <groupId>com.guoyy.jw</groupId>
     <version>1.0.0.0</version>
 
     <dependencies>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.33.Final</version>
+            <version>4.1.52.Final</version>
         </dependency>
         <dependency>
             <groupId>org.msgpack</groupId>
@@ -23,7 +28,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>3.11</version>
         </dependency>
     </dependencies>
 

@@ -3,10 +3,15 @@ package com.guoyy.netty.server;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.guoyy.netty.conf.HostInfo;
-import com.guoyy.netty.util.MsgpackSerialize;
 import com.guoyy.netty.dto.Pair;
+import com.guoyy.netty.util.MsgpackSerialize;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -58,7 +63,7 @@ public class TcpServer {
 
             ChannelFuture channelFuture = server.bind(new InetSocketAddress(HostInfo.rpcSrvPort)).addListener(future -> {
                 if (future.isSuccess()) {
-                    System.out.println(String.format("服务器地址[%s]，监听端口[%d]已启动，可以正常通讯。", HostInfo.rpcSrvIp, HostInfo.rpcSrvPort));
+                    System.out.printf("服务器地址[%s]，监听端口[%d]已启动，可以正常通讯。%n", HostInfo.rpcSrvIp, HostInfo.rpcSrvPort);
                 }
             }).sync();
             channelFuture.channel().closeFuture().sync();
@@ -77,18 +82,20 @@ public class TcpServer {
                 System.out.println("TcpServerHandler channelRead msg: " + msg);
 
                 if (msg instanceof Pair) {
-                    Pair pair = (Pair) msg;
+                    Pair pair = (Pair)msg;
                     JSONObject jsonObj = JSON.parseObject(pair.getJsonStr());
                     jsonObj.put("RpcServerTime", System.currentTimeMillis());
                     pair.setJsonStr(jsonObj.toJSONString());
 
-                    ctx.write(pair);
+                    ctx.channel().write(pair);
+                    // ctx.write(pair);
                 } else {
-                    String jsonStr = (String) msg;
+                    String jsonStr = (String)msg;
                     JSONObject jsonObj = JSON.parseObject(jsonStr);
                     jsonObj.put("RpcServerTime", System.currentTimeMillis());
 
-                    ctx.write(jsonObj.toJSONString());
+                    ctx.channel().write(jsonObj.toJSONString());
+                    // ctx.write(jsonObj.toJSONString());
                 }
             } finally {
                 ReferenceCountUtil.release(msg);

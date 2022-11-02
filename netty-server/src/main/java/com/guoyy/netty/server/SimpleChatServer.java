@@ -2,7 +2,13 @@ package com.guoyy.netty.server;
 
 import com.guoyy.netty.conf.HostInfo;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -36,7 +42,7 @@ public class SimpleChatServer {
             ChannelFuture channelFuture = server.bind(new InetSocketAddress(HostInfo.rpcSrvIp, HostInfo.rpcSrvPort))
                     .addListener((future) -> {
                         if (future.isSuccess()) {
-                            System.out.println(String.format("服务器启动[%s:%s]", HostInfo.rpcSrvIp, HostInfo.rpcSrvPort));
+                            System.out.printf("服务器启动[%s:%s]%n", HostInfo.rpcSrvIp, HostInfo.rpcSrvPort);
                         }
                     }).sync();
             channelFuture.channel().closeFuture().sync();
