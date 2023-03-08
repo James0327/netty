@@ -13,13 +13,13 @@ import java.util.concurrent.LinkedBlockingDeque;
  */
 public enum MessageQueue {
     ;
-    private static LinkedBlockingDeque queue = new LinkedBlockingDeque(8192);
+    private static final LinkedBlockingDeque QUEUE = new LinkedBlockingDeque(8192);
 
     public static Object take() throws InterruptedException {
-        return queue.take();
+        return QUEUE.take();
     }
 
     public static void put(Object obj) throws InterruptedException {
-        queue.put(obj);
+        QUEUE.put(obj);
     }
 }

@@ -1,7 +1,7 @@
 package com.guoyy.netty.client;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.guoyy.netty.conf.HostInfo;
 import com.guoyy.netty.dto.Pair;
 import com.guoyy.netty.util.MessageQueue;
